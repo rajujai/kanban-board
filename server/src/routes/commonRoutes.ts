@@ -10,6 +10,8 @@ const post = (model: any) => async (req: Request, res: Response) => {
 };
 const get = (model: any) => async (req: Request, res: Response) => {
     try {
+        console.log("hii");
+        
         const items = await model.find().lean().exec();
         return res.status(200).send(items);
     } catch (err: any) {

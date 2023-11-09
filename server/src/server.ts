@@ -5,23 +5,23 @@ const express = require('express');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
-const boardApi = require('./controllers/board.controller.ts');
-const columnApi = require('./controllers/column.controller.ts');
-const itemApi = require('./controllers/item.controller.ts');
+const boardRoutes = require('./routes/boardRoutes.ts');
+const columnRoutes = require('./routes/columnRoutes.ts');
+const itemRoutes = require('./routes/itemRoutes.ts');
 
 const app = express();
 const PORT = process.env.PORT || 8080;
 
-
+app.use(express.static('public'));
 app.use(helmet());
 app.use(bodyParser.json());
 app.use(cors());
 app.use(morgan('combined'));
 app.use(express.urlencoded({ extended: false }));
 
-app.use("/api/board", ()=> boardApi);
-app.use("/api/column", ()=> columnApi);
-app.use("/api/item", ()=> itemApi)
+app.use("/board", () => boardRoutes);
+app.use("/column", () => columnRoutes);
+app.use("/item", () => itemRoutes)
 
 
 app.listen(PORT, async () => {
