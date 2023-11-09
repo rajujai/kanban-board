@@ -1,15 +1,15 @@
-import bodyParser from 'body-parser';
-import cors from 'cors';
-import 'dotenv/config';
-import express, { Request, Response } from 'express';
-import helmet from 'helmet';
-import morgan from 'morgan';
-import dbConnection from './configs/db';
-import boardApi from './controllers/board.controller';
-import columnApi from './controllers/column.controller';
-import itemApi from './controllers/item.controller';
+const bodyParser = require('body-parser');
+const cors = require('cors');
+require('dotenv/config');
+const express = require('express');
+const helmet = require('helmet');
+const morgan = require('morgan');
+const mongoose = require('mongoose');
+const boardApi = require('./controllers/board.controller.ts');
+const columnApi = require('./controllers/column.controller.ts');
+const itemApi = require('./controllers/item.controller.ts');
 
-const app: express.Application = express();
+const app = express();
 const PORT = process.env.PORT || 8080;
 
 
@@ -19,16 +19,12 @@ app.use(cors());
 app.use(morgan('combined'));
 app.use(express.urlencoded({ extended: false }));
 
-app.use("/api/board", boardApi);
-app.use("/api/column", columnApi);
-app.use("/api/item", itemApi)
-
-app.get('/', (req: Request, res: Response) => {
-    res.send("Kanban board Application");
-});
+app.use("/api/board", ()=> boardApi);
+app.use("/api/column", ()=> columnApi);
+app.use("/api/item", ()=> itemApi)
 
 
 app.listen(PORT, async () => {
-    await dbConnection();
+    await mongoose.connect(process.env.MONGO_DB || "");
     console.log(`Server running on port:${PORT}`);
 });
