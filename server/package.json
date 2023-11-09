@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "src/server",
+  "type": "module",
   "scripts": {
     "tsc": "tsc",
-    "dev": "ts-node-dev ./src/server.ts",
-    "prod": "tsc && node ./dist/index.js",
+    "dev": "ts-node-dev ./src/server",
+    "prod": "tsc && node ./build/server",
     "start": "nodemon src/server"
   },
   "author": "rajujai",

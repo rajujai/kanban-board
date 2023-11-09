@@ -43,7 +43,7 @@ const deleteOne = (model: any) => async (req: Request, res: Response) => {
     }
 };
 
-export default (model: any) => ({
+module.exports = (model: any) => ({
     post: post(model),
     get: get(model),
     getOne: getOne(model),
